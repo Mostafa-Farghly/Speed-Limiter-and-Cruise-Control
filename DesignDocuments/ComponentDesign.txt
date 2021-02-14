@@ -118,7 +118,7 @@ wait Semaphore
 		else if speed = limit
 			Send Control Action
 		else if speed>limit
-			Event Alarm
+			Event Alarm and E_AlarmScreen
 		else if SS = Alarm
 			Clear Event Alarm
 	else CC=on
@@ -131,7 +131,7 @@ wait Semaphore
 			CC stdBy
 			Event Main Screen
 		else if Speed>limit
-			Event Alarm
+			Event Alarm and E_AlarmScreen
 		else if SS = Alarm
 			Clear Event Alarm
 		else
@@ -142,7 +142,6 @@ wait Semaphore
 T_Alarm:
 	wait E_Alarm
 	
-	Set E_AlarmScreen
 	Led ON
 	
 	if g == 0:
