@@ -1,0 +1,168 @@
+EG: display events
+1-E_MainSCR
+2-E_SLSCR
+3-E_CCSCR
+4-E_vehicle speed
+5-E-set limit speed
+6-E_alarmSCR
+EG: Control events
+1- E_AlarmON
+2- E_Break
+3- E_ Gas
+
+
+Structure
+1- System State
+2- Speed Limit
+3- Cruise Control
+4- Speed
+5- Limit
+6- Gas
+7- Break
+
+-------------------------------------------------
+T_UserInput
+
+if Speed+ Pressed
+	if sl = standby
+		systemstate = SL
+		SLState = ON
+		Give Sempahore
+		Event SL Screen
+	else if CC = Standby
+		systemstate = CC
+		CCState = ON
+		Give Semaphore
+		Event CC Screen
+	else if ( system state == SpeedLimit or CruiseControl or Alarm)
+		Limit++
+		Give Semaphore
+		Event limit Speed
+else if speed- Pressed
+	if sl = standby
+		systemstate = SL
+		SLState = ON
+		Give Sempahore
+		Event SL Screen
+	else if CC = Standby
+		limit= Currentspeed
+		systemstate = CC
+		CCState = ON
+		Give Semaphore
+		Event CC Screen,LimitSpeed
+	else if ( system state == SpeedLimit or CruiseControl or Alarm)
+		Limit--
+		Give Semaphore
+		Event limit Speed
+else if SL btn Pressed
+	if sysstate != SL && SL = OFF
+		SysState = SL
+		SL = ON
+		CC = OFF
+		limit=0
+		Give Semaphore
+		Event SL Screen
+	else if (sysstate = Main ||SL) && (SL != OFF)
+		SL = OFF
+		limit=0
+		Event Main Screen
+else if CC btn Pressed
+	if sysstate != CC && CC = OFF
+		SysState = CC
+		CC = ON
+		SL = OFF
+		limit=0
+		Give Semaphore
+		Event CC Screen
+	else if (sysstate = Main ||CC) && (CC != OFF)
+		C = OFF
+		limit=0
+		Event Main Screen
+else if Standbybtn Pressed
+	if SysState !=Main
+		if CC= ON
+			CC = stdby
+			SysState = Main
+			Event Main Screen
+		else if SL= ON
+			SL = stdby
+			SysState = Main
+			Event Main Screen
+vTaskDelay(50)
+-------------------------------------------------
+T_UART
+if Ch received
+	if SS !=Main
+		if ch = 'B'
+	 		break=1
+			give Sem
+		else if ch = 'G'
+			gas = 1
+			give Sem
+		else if ch = 'N'
+			gas = 0
+			give sem
+		else 
+			Get Speed
+			Event Speed
+			give sem
+	else 
+		Get Speed
+		give sem
+vTaskDelay(100)
+------------------------------------------
+T_SpeedControl
+wait Semaphore
+	if SL=on
+		if limit =0
+			limit = speed
+			Send Control Action
+		else if speed>limit
+			Event Alarm
+		else if speed = limit
+			Send Control Action
+	else CC=on
+		if limit =0
+			limit = speed
+			Send Control Action
+		else if Break =1
+			SS = Main
+			CC stdBy
+			Event Main Screen
+		else if Speed>limit
+			Event Alarm
+		else
+			speed = limit
+			Event Speed
+			Send Control Action
+
+--------------------------------------------
+T_Alarm:
+	wait E_Alarm
+	
+	Set E_AlarmScreen
+	Led ON
+	
+	if g == 0:
+		Buzzer ON
+	
+	delay(500)
+	Led OFF
+	Buzzer OFF
+
+-------------------------------------------
+T_Display
+wait for events 1->6
+	if Event1
+		Display Main Screen
+	else if Event2
+		Display SL Screen
+	else if Event3
+		Display CC Screen
+	else if Event6
+		Display Alarm Screen
+	else if Event4
+		Display new speed
+	else if Event2
+		Display new Limit
+-------------------------------------------

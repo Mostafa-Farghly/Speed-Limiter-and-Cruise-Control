@@ -1,0 +1,46 @@
+12:57:17 **** Build of configuration Debug for project HelperMicro ****
+make all 
+Building file: ../drivers/DIO_program.c
+Invoking: AVR Compiler
+avr-gcc -I"D:\NTI\RTOS\workspaces\AVRWorkspace\HelperMicro\ConfigHeaders" -I"D:\NTI\RTOS\workspaces\AVRWorkspace\HelperMicro\driversHeaders" -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"drivers/DIO_program.d" -MT"drivers/DIO_program.o" -c -o "drivers/DIO_program.o" "../drivers/DIO_program.c"
+Finished building: ../drivers/DIO_program.c
+ 
+Building file: ../drivers/usart_driver.c
+Invoking: AVR Compiler
+avr-gcc -I"D:\NTI\RTOS\workspaces\AVRWorkspace\HelperMicro\ConfigHeaders" -I"D:\NTI\RTOS\workspaces\AVRWorkspace\HelperMicro\driversHeaders" -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"drivers/usart_driver.d" -MT"drivers/usart_driver.o" -c -o "drivers/usart_driver.o" "../drivers/usart_driver.c"
+Finished building: ../drivers/usart_driver.c
+ 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -I"D:\NTI\RTOS\workspaces\AVRWorkspace\HelperMicro\ConfigHeaders" -I"D:\NTI\RTOS\workspaces\AVRWorkspace\HelperMicro\driversHeaders" -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"main.d" -MT"main.o" -c -o "main.o" "../main.c"
+In file included from ../main.c:10:
+c:/winavr-20100110/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../main.c
+ 
+Building target: HelperMicro.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,HelperMicro.map -mmcu=atmega128 -o "HelperMicro.elf"  ./drivers/DIO_program.o ./drivers/usart_driver.o  ./main.o   
+Finished building target: HelperMicro.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S HelperMicro.elf  >"HelperMicro.lss"
+Finished building: HelperMicro.lss
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega128 HelperMicro.elf
+AVR Memory Usage
+----------------
+Device: atmega128
+
+Program:    7632 bytes (5.8% Full)
+(.text + .data + .bootloader)
+
+Data:         28 bytes (0.7% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+12:57:18 Build Finished. 0 errors, 1 warnings. (took 880ms)
+

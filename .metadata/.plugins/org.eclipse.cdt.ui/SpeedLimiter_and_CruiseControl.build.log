@@ -1,0 +1,108 @@
+12:57:39 **** Build of configuration Debug for project SpeedLimiter_and_CruiseControl ****
+make all 
+Building file: ../FreeRTOS/Src/PollQ.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"FreeRTOS/Src/PollQ.d" -MT"FreeRTOS/Src/PollQ.o" -c -o "FreeRTOS/Src/PollQ.o" "../FreeRTOS/Src/PollQ.c"
+Finished building: ../FreeRTOS/Src/PollQ.c
+ 
+Building file: ../FreeRTOS/Src/croutine.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"FreeRTOS/Src/croutine.d" -MT"FreeRTOS/Src/croutine.o" -c -o "FreeRTOS/Src/croutine.o" "../FreeRTOS/Src/croutine.c"
+Finished building: ../FreeRTOS/Src/croutine.c
+ 
+Building file: ../FreeRTOS/Src/event_groups.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"FreeRTOS/Src/event_groups.d" -MT"FreeRTOS/Src/event_groups.o" -c -o "FreeRTOS/Src/event_groups.o" "../FreeRTOS/Src/event_groups.c"
+Finished building: ../FreeRTOS/Src/event_groups.c
+ 
+Building file: ../FreeRTOS/Src/heap_1.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"FreeRTOS/Src/heap_1.d" -MT"FreeRTOS/Src/heap_1.o" -c -o "FreeRTOS/Src/heap_1.o" "../FreeRTOS/Src/heap_1.c"
+../FreeRTOS/Src/heap_1.c: In function 'pvPortMalloc':
+../FreeRTOS/Src/heap_1.c:114: warning: cast from pointer to integer of different size
+Finished building: ../FreeRTOS/Src/heap_1.c
+ 
+Building file: ../FreeRTOS/Src/integer.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"FreeRTOS/Src/integer.d" -MT"FreeRTOS/Src/integer.o" -c -o "FreeRTOS/Src/integer.o" "../FreeRTOS/Src/integer.c"
+Finished building: ../FreeRTOS/Src/integer.c
+ 
+Building file: ../FreeRTOS/Src/list.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"FreeRTOS/Src/list.d" -MT"FreeRTOS/Src/list.o" -c -o "FreeRTOS/Src/list.o" "../FreeRTOS/Src/list.c"
+Finished building: ../FreeRTOS/Src/list.c
+ 
+Building file: ../FreeRTOS/Src/port.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"FreeRTOS/Src/port.d" -MT"FreeRTOS/Src/port.o" -c -o "FreeRTOS/Src/port.o" "../FreeRTOS/Src/port.c"
+Finished building: ../FreeRTOS/Src/port.c
+ 
+Building file: ../FreeRTOS/Src/queue.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"FreeRTOS/Src/queue.d" -MT"FreeRTOS/Src/queue.o" -c -o "FreeRTOS/Src/queue.o" "../FreeRTOS/Src/queue.c"
+Finished building: ../FreeRTOS/Src/queue.c
+ 
+Building file: ../FreeRTOS/Src/tasks.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"FreeRTOS/Src/tasks.d" -MT"FreeRTOS/Src/tasks.o" -c -o "FreeRTOS/Src/tasks.o" "../FreeRTOS/Src/tasks.c"
+../FreeRTOS/Src/tasks.c: In function 'xTaskGenericCreate':
+../FreeRTOS/Src/tasks.c:553: warning: cast from pointer to integer of different size
+../FreeRTOS/Src/tasks.c:553: warning: cast to pointer from integer of different size
+../FreeRTOS/Src/tasks.c: At top level:
+../FreeRTOS/Src/tasks.c:415: warning: 'prvTaskIsTaskSuspended' declared 'static' but never defined
+Finished building: ../FreeRTOS/Src/tasks.c
+ 
+Building file: ../DIO_program.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"DIO_program.d" -MT"DIO_program.o" -c -o "DIO_program.o" "../DIO_program.c"
+Finished building: ../DIO_program.c
+ 
+Building file: ../lcd.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"lcd.d" -MT"lcd.o" -c -o "lcd.o" "../lcd.c"
+In file included from ../micro_config.h:20,
+                 from ../lcd.c:13:
+c:/winavr-20100110/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../lcd.c
+ 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"main.d" -MT"main.o" -c -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
+Building file: ../usart_driver.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega128 -DF_CPU=8000000UL -MMD -MP -MF"usart_driver.d" -MT"usart_driver.o" -c -o "usart_driver.o" "../usart_driver.c"
+Finished building: ../usart_driver.c
+ 
+Building target: SpeedLimiter_and_CruiseControl.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,SpeedLimiter_and_CruiseControl.map -mmcu=atmega128 -o "SpeedLimiter_and_CruiseControl.elf"  ./FreeRTOS/Src/PollQ.o ./FreeRTOS/Src/croutine.o ./FreeRTOS/Src/event_groups.o ./FreeRTOS/Src/heap_1.o ./FreeRTOS/Src/integer.o ./FreeRTOS/Src/list.o ./FreeRTOS/Src/port.o ./FreeRTOS/Src/queue.o ./FreeRTOS/Src/tasks.o  ./DIO_program.o ./lcd.o ./main.o ./usart_driver.o   
+Finished building target: SpeedLimiter_and_CruiseControl.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S SpeedLimiter_and_CruiseControl.elf  >"SpeedLimiter_and_CruiseControl.lss"
+Finished building: SpeedLimiter_and_CruiseControl.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex SpeedLimiter_and_CruiseControl.elf  "SpeedLimiter_and_CruiseControl.hex"
+Finished building: SpeedLimiter_and_CruiseControl.hex
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega128 SpeedLimiter_and_CruiseControl.elf
+AVR Memory Usage
+----------------
+Device: atmega128
+
+Program:   23846 bytes (18.2% Full)
+(.text + .data + .bootloader)
+
+Data:       2864 bytes (69.9% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+12:57:42 Build Finished. 0 errors, 5 warnings. (took 2s.616ms)
+
