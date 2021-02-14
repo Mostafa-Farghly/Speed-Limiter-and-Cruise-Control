@@ -236,7 +236,30 @@ void T_Uart(void *pvInitData)
 			continue;
 		}
 
-		/*TODO*/
+		if(chr == GAS_UART)
+		{
+			Param.GasPedal = PRESSED;
+			xSemaphoreGive(bsControl);
+		}
+
+		/* Brakes is only used to put Cruise Control into standby */
+		else if(chr == BRAKES_UART && Param.CruiseControl == ON)
+		{
+			Param.Brakes = PRESSED;
+			xSemaphoreGive(bsControl);
+		}
+
+		else if(chr == UNPRESS_UART)
+		{
+			Param.GasPedal = UNPRESSED;
+			xSemaphoreGive(bsControl);
+		}
+
+		else
+		{
+			Param.VehicleSpeed = chr;
+			xSemaphoreGive(bsControl);
+		}
 
 		vTaskDelay(50);
 	}
