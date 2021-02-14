@@ -135,7 +135,6 @@ wait Semaphore
 		else if SS = Alarm
 			Clear Event Alarm
 		else
-			speed = limit
 			Event Speed
 			Send Control Action
 
