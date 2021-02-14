@@ -351,6 +351,7 @@ void T_Uart(void *pvInitData)
 		else
 		{
 			Param.VehicleSpeed = chr;
+			xEventGroupSetBits(egEvents, E_V_SPEED);
 			xSemaphoreGive(bsControl);
 		}
 
