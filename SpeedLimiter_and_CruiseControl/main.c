@@ -47,14 +47,14 @@ void T_Display(void *pvInitData);
 #define BUZZER						PIN6	/* PINA6 */
 
 /* Display Events */
-#define E_MAIN_SCR					(1 << 0)
-#define E_SL_SCR					(1 << 1)
-#define E_CC_SCR					(1 << 2)
-#define E_ALARM_SCR					(1 << 3)
-#define E_V_SPEED					(1 << 4)
-#define E_C_SPEED					(1 << 5)
+#define E_MAIN_SCR					(1 << 0)	/* Main cruise screen event */
+#define E_SL_SCR					(1 << 1)    /* Speed Limiter screen event */
+#define E_CC_SCR					(1 << 2)    /* Cruise Control screen event */
+#define E_ALARM_SCR					(1 << 3)    /* Alarm screen event */
+#define E_V_SPEED					(1 << 4)    /* Vehicle speed update event */
+#define E_C_SPEED					(1 << 5)    /* Control speed update event */
 /* Control Events */
-#define E_ALARM						(1 << 6)
+#define E_ALARM						(1 << 6)	/* Alarm trigger event */
 
 /* Speed Limiter and Cruise Control Statuses */
 #define OFF							(0)
