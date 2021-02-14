@@ -52,11 +52,8 @@ void T_Display(void *pvInitData);
 #define E_ALARM_SCR					(1 << 3)
 #define E_V_SPEED					(1 << 4)
 #define E_C_SPEED					(1 << 5)
-
 /* Control Events */
-#define E_ALARM						(1 << 0)
-#define E_GAS						(1 << 1)
-#define E_BRAKES					(1 << 2)
+#define E_ALARM						(1 << 6)
 
 /* Speed Limiter and Cruise Control Statuses */
 #define OFF							(0)
@@ -102,13 +99,10 @@ SysParam Param =
 		.Brakes = UNPRESSED
 };
 
-/* Display Events */
-EventGroupHandle_t		egDisplay;
-EventBits_t				ebDisblay;
+/* Events Group Handle */
+EventGroupHandle_t		egEvents;
+EventBits_t				ebEvents;
 
-/* Control Events */
-EventGroupHandle_t		egControl;
-EventBits_t				ebControl;
 
 /* Control binary semaphore */
 SemaphoreHandle_t 		bsControl;
@@ -120,8 +114,7 @@ int main(void)
 
 	bsControl=xSemaphoreCreateBinary();
 
-	egDisplay = xEventGroupCreate();
-	egControl = xEventGroupCreate();
+	egEvents = xEventGroupCreate();
 
 	xTaskCreate(T_UserInput, NULL, 200, NULL, 2, NULL);
 	xTaskCreate(T_Alarm, NULL, 200, NULL, 5, NULL);
@@ -180,7 +173,7 @@ void T_Alarm(void *pvInitData)
 
 		if(ebControl & E_ALARM)
 		{
-			xEventGroupSetBits(egDisplay, E_ALARM_SCR);
+			xEventGroupSetBits(egEvents, E_ALARM_SCR);
 
 			/* Turn Led ON */
 			DIO_VidSetPinValue(0, LED, 0);
