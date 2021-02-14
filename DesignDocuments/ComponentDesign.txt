@@ -91,7 +91,7 @@ vTaskDelay(50)
 T_UART
 if Ch received
 	if SS !=Main
-		if ch = 'B'
+		if ch = 'B' and CC = ON
 	 		brakes=1
 			give Sem
 		else if ch = 'G'
@@ -124,6 +124,7 @@ wait Semaphore
 			limit = speed
 			Send Control Action
 		else if brakes =1
+			brakes = 0
 			SS = Main
 			CC stdBy
 			Event Main Screen
