@@ -165,13 +165,13 @@ void T_Alarm(void *pvInitData)
 	usart_puts("T_Alarm Started...\r\n");
 	while(1)
 	{
-		ebControl = xEventGroupWaitBits(egControl,
+		ebEvents = xEventGroupWaitBits(egEvents,
 				E_ALARM,
 				0,
 				0,
 				portMAX_DELAY);
 
-		if(ebControl & E_ALARM)
+		if(ebEvents & E_ALARM)
 		{
 			xEventGroupSetBits(egEvents, E_ALARM_SCR);
 
