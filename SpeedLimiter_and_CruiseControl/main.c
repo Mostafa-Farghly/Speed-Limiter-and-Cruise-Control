@@ -10,6 +10,7 @@
 #include "usart_driver.h"
 #include "lcd.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "FreeRTOS/Src/FreeRTOS.h"
 #include "FreeRTOS/Src/task.h"
@@ -211,7 +212,99 @@ void T_Control(void *pvInitData)
 	{
 		if(xSemaphoreTake(bsControl, portMAX_DELAY))
 		{
-			/*TODO*/
+			/* Speed Limiter control */
+			if(Param.SpeedLimiter == ON)
+			{
+				/*
+				 * The system parameter ControlSpeed = 0 indicates that Speed Limiter
+				 * is just turned on. In this case the ControlSpeed is set to the current
+				 * VehicleSpeed and control action is sent over UART to increase the gas
+				 * pedal's resistance.
+				 */
+				if(Param.ControlSpeed == 0)
+				{
+					Param.ControlSpeed = Param.VehicleSpeed;
+					xEventGroupSetBits(egEvents, E_C_SPEED);
+					usart_puts("Increase gas pedal resistance!\r\n");
+				}
+
+				/*
+				 * Whenever the VehicleSpeed is equal to the ControlSpeed, control action
+				 * is sent over UART to increase the gas pedal's resistance.
+				 */
+				else if(Param.VehicleSpeed == Param.ControlSpeed)
+				{
+					usart_puts("Increase gas pedal resistance!\r\n");
+				}
+
+				/* Whenever the VehicleSpeed exceeds the ControlSpeed, alarm is triggered */
+				else if(Param.VehicleSpeed > Param.ControlSpeed)
+				{
+					Param.SysState = ALARM;
+					xEventGroupSetBits(egEvents, E_ALARM | E_ALARM_SCR);
+				}
+				/*
+				 * When alarm is on and VehicleSpeed gets smaller than ControlSpeed, alarm
+				 * is turned off.
+				 */
+				else if(Param.SysState == ALARM)
+				{
+					Param.SysState = MAIN_CRUISE;
+					xEventGroupSetBits(egEvents, E_SL_SCR);
+					xEventGroupClearBits(egEvents, E_ALARM);
+				}
+			}
+
+			/* Cruise Control control */
+			else if(Param.CruiseControl == ON)
+			{
+				/* Control action buffer */
+				char controlAction[10];
+
+				/*
+				 * The system parameter ControlSpeed = 0 indicates that Cruise Control
+				 * is just turned on. In this case the ControlSpeed is set to the current
+				 * VehicleSpeed and control action is sent over UART to adjust VehicleSpeed.
+				 */
+				if(Param.ControlSpeed == 0)
+				{
+					Param.ControlSpeed = Param.VehicleSpeed;
+					xEventGroupSetBits(egEvents, E_C_SPEED);
+					sprintf(controlAction, "%d\r\n", Param.ControlSpeed - Param.VehicleSpeed);
+					usart_puts(controlAction);
+				}
+
+				/* Whenever the VehicleSpeed exceeds the ControlSpeed, alarm is triggered */
+				else if(Param.VehicleSpeed > Param.ControlSpeed)
+				{
+					Param.SysState = ALARM;
+					xEventGroupSetBits(egEvents, E_ALARM | E_ALARM_SCR);
+				}
+				/*
+				 * When alarm is on and VehicleSpeed gets smaller than ControlSpeed, alarm
+				 * is turned off.
+				 */
+				else if(Param.SysState == ALARM)
+				{
+					Param.SysState = MAIN_CRUISE;
+					xEventGroupSetBits(egEvents, E_SL_SCR);
+					xEventGroupClearBits(egEvents, E_ALARM);
+				}
+				/* Control action is sent over UART to adjust VehicleSpeed */
+				else
+				{
+					sprintf(controlAction, "%d\r\n", Param.ControlSpeed - Param.VehicleSpeed);
+					usart_puts(controlAction);
+				}
+
+				/* Whenever the Brakes is pressed, Cruise Control is put into standby */
+				if(Param.Brakes == PRESSED)
+				{
+					Param.SysState = MAIN_CRUISE;
+					Param.CruiseControl = STANDBY;
+					xEventGroupSetBits(egEvents, E_MAIN_SCR);
+				}
+			}
 		}
 	}
 }
