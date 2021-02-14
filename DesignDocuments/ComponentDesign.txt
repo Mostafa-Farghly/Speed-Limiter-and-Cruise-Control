@@ -115,10 +115,12 @@ wait Semaphore
 		if limit =0
 			limit = speed
 			Send Control Action
-		else if speed>limit
-			Event Alarm
 		else if speed = limit
 			Send Control Action
+		else if speed>limit
+			Event Alarm
+		else if SS = Alarm
+			Clear Event Alarm
 	else CC=on
 		if limit =0
 			limit = speed
@@ -130,6 +132,8 @@ wait Semaphore
 			Event Main Screen
 		else if Speed>limit
 			Event Alarm
+		else if SS = Alarm
+			Clear Event Alarm
 		else
 			speed = limit
 			Event Speed
