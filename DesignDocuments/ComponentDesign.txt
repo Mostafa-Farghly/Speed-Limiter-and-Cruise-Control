@@ -7,8 +7,6 @@ EG: display events
 6-E_alarmSCR
 EG: Control events
 1- E_AlarmON
-2- E_Break
-3- E_ Gas
 
 
 Structure
