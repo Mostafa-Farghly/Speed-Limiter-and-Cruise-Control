@@ -174,8 +174,6 @@ void T_Alarm(void *pvInitData)
 
 		if(ebEvents & E_ALARM)
 		{
-			xEventGroupSetBits(egEvents, E_ALARM_SCR);
-
 			/* Turn Led ON */
 			DIO_VidSetPinValue(0, LED, 0);
 
