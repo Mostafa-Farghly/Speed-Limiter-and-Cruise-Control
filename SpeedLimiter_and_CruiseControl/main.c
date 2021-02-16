@@ -123,6 +123,9 @@ int main(void)
 	xTaskCreate(T_Uart, NULL, 300, NULL, 3, NULL);
 	xTaskCreate(T_Display, NULL, 400, NULL, 1, NULL);
 
+	/* Display Initialization */
+	xEventGroupSetBits(egEvents, E_MAIN_SCR);
+
 	vTaskStartScheduler();
 }
 
