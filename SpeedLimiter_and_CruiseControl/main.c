@@ -559,10 +559,14 @@ void T_Display(void *pvInitData)
 		}
 		else if(ebEvents & E_SL_SCR)
 		{
+			LCD_clearScreen();
+			xEventGroupSetBits(egEvents, E_V_SPEED);
 			LCD_displayStringRowColumn(0, 0, "S.L");
 		}
 		else if(ebEvents & E_CC_SCR)
 		{
+			LCD_clearScreen();
+			xEventGroupSetBits(egEvents, E_V_SPEED);
 			LCD_displayStringRowColumn(0, 0, "C.C");
 		}
 		else if(ebEvents & E_ALARM_SCR)
