@@ -580,12 +580,16 @@ void T_Display(void *pvInitData)
 		if(ebEvents & E_V_SPEED)
 		{
 			LCD_goToRowColumn(1, 6);
+			/* Clear extra digits */
+			LCD_displayStringRowColumn(1, 7, "  ");
 			LCD_intgerToString(Param.VehicleSpeed);
 		}
 
 		if(ebEvents & E_C_SPEED)
 		{
 			LCD_goToRowColumn(0, 3);
+			/* Clear extra digits */
+			LCD_displayStringRowColumn(0, 4, "  ");
 			LCD_intgerToString(Param.ControlSpeed);
 		}
 	}
