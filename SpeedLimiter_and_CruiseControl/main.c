@@ -370,7 +370,48 @@ void T_Display(void *pvInitData)
 
 	while(1)
 	{
-		/*TODO*/
+		ebEvents = xEventGroupWaitBits(egEvents,
+				(E_MAIN_SCR | E_SL_SCR | E_CC_SCR | E_ALARM_SCR | E_V_SPEED | E_C_SPEED),
+				1,
+				0,
+				portMAX_DELAY);
+
+		if(ebEvents & E_MAIN_SCR)
+		{
+			if(Param.SpeedLimiter == STANDBY || Param.CruiseControl == STANDBY)
+			{
+				LCD_displayStringRowColumn(0, 14, "STANDBY");
+			}
+			else
+			{
+				LCD_clearScreen();
+				xEventGroupSetBits(egEvents, E_V_SPEED);
+			}
+		}
+		else if(ebEvents & E_SL_SCR)
+		{
+			LCD_displayStringRowColumn(0, 0, "S.L");
+		}
+		else if(ebEvents & E_CC_SCR)
+		{
+			LCD_displayStringRowColumn(0, 0, "C.C");
+		}
+		else if(ebEvents & E_ALARM_SCR)
+		{
+			LCD_displayStringRowColumn(0, 7, "ALARM");
+		}
+
+		if(ebEvents & E_V_SPEED)
+		{
+			LCD_goToRowColumn(1, 6);
+			LCD_intgerToString(Param.VehicleSpeed);
+		}
+
+		if(ebEvents & E_C_SPEED)
+		{
+			LCD_goToRowColumn(0, 3);
+			LCD_intgerToString(Param.ControlSpeed);
+		}
 	}
 }
 
