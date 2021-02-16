@@ -146,7 +146,176 @@ void T_UserInput(void *pvInitData)
 
 	while(1)
 	{
-		/*TODO*/
+		/* Increase speed button */
+		if(!DIO_u8GetPinValue(0, BTN_INC))
+		{
+			vTaskDelay(30);
+			{
+				if(!DIO_u8GetPinValue(0, BTN_INC))
+				{
+					if(Param.SpeedLimiter == STANDBY)
+					{
+						/* Resume the Speed Limiter from standby */
+						Param.SysState = SPEED_LIMITER;
+						Param.SpeedLimiter = ON;
+						xSemaphoreGive(bsControl);
+						xEventGroupSetBits(egEvents, E_SL_SCR | E_C_SPEED);
+					}
+					else if(Param.CruiseControl == STANDBY)
+					{
+						/* Resume the Cruise Control from standby with saved control speed */
+						Param.SysState = CRUISE_CONTROL;
+						Param.CruiseControl = ON;
+						xSemaphoreGive(bsControl);
+						xEventGroupSetBits(egEvents, E_CC_SCR | E_C_SPEED);
+					}
+					else if(Param.SysState != MAIN_CRUISE)
+					{
+						/* Increment control speed */
+						Param.ControlSpeed++;
+						xSemaphoreGive(bsControl);
+						xEventGroupSetBits(egEvents, E_C_SPEED);
+					}
+
+					while(!DIO_u8GetPinValue(0, BTN_INC))
+					{
+						vTaskDelay(150);
+					}
+				}
+			}
+		}
+
+		/* Decrease speed button */
+		if(!DIO_u8GetPinValue(0, BTN_DEC))
+		{
+			vTaskDelay(30);
+			{
+				if(!DIO_u8GetPinValue(0, BTN_DEC))
+				{
+					if(Param.SpeedLimiter == STANDBY)
+					{
+						/* Resume the Speed Limiter from standby */
+						Param.SysState = SPEED_LIMITER;
+						Param.SpeedLimiter = ON;
+						xSemaphoreGive(bsControl);
+						xEventGroupSetBits(egEvents, E_SL_SCR | E_C_SPEED);
+					}
+					else if(Param.CruiseControl == STANDBY)
+					{
+						/*
+						 * Resume the Cruise Control from standby with
+						 * control speed = current vehicle speed
+						 */
+						Param.SysState = CRUISE_CONTROL;
+						Param.CruiseControl = ON;
+						Param.ControlSpeed = Param.VehicleSpeed;
+						xSemaphoreGive(bsControl);
+						xEventGroupSetBits(egEvents, E_CC_SCR | E_C_SPEED);
+					}
+					else if(Param.SysState != MAIN_CRUISE)
+					{
+						/* Decrement control speed */
+						Param.ControlSpeed--;
+						xSemaphoreGive(bsControl);
+						xEventGroupSetBits(egEvents, E_C_SPEED);
+					}
+
+					while(!DIO_u8GetPinValue(0, BTN_DEC))
+					{
+						vTaskDelay(150);
+					}
+				}
+			}
+		}
+
+		/* Speed Limiter button */
+		if(!DIO_u8GetPinValue(0, BTN_SL))
+		{
+			vTaskDelay(30);
+			if(!DIO_u8GetPinValue(0, BTN_SL))
+			{
+				if(Param.SpeedLimiter == OFF)
+				{
+					/* Turn Speed Limiter ON */
+					Param.SysState = SPEED_LIMITER;
+					Param.CruiseControl = OFF;
+					Param.SpeedLimiter = ON;
+					Param.ControlSpeed = 0;
+					xSemaphoreGive(bsControl);
+					xEventGroupSetBits(egEvents, E_SL_SCR);
+				}
+				else
+				{
+					/* Turn Speed Limiter OFF */
+					Param.SysState = MAIN_CRUISE;
+					Param.SpeedLimiter = OFF;
+					xEventGroupSetBits(egEvents, E_MAIN_SCR);
+				}
+			}
+			while(!DIO_u8GetPinValue(0, BTN_SL))
+			{
+				vTaskDelay(150);
+			}
+		}
+
+		/* Cruise Control button*/
+		if(!DIO_u8GetPinValue(0, BTN_CC))
+		{
+			vTaskDelay(30);
+			if(!DIO_u8GetPinValue(0, BTN_CC))
+			{
+				if(Param.CruiseControl == OFF)
+				{
+					/* Turn Cruise Control ON */
+					Param.SysState = CRUISE_CONTROL;
+					Param.SpeedLimiter = OFF;
+					Param.CruiseControl = ON;
+					Param.ControlSpeed = 0;
+					xSemaphoreGive(bsControl);
+					xEventGroupSetBits(egEvents, E_CC_SCR);
+				}
+				else
+				{
+					/* Turn Cruise Control OFF */
+					Param.SysState = MAIN_CRUISE;
+					Param.CruiseControl = OFF;
+					xEventGroupSetBits(egEvents, E_MAIN_SCR);
+				}
+			}
+			while(!DIO_u8GetPinValue(0, BTN_CC))
+			{
+				vTaskDelay(150);
+			}
+		}
+
+		/* Standby button */
+		if(!DIO_u8GetPinValue(0, BTN_STANDBY))
+		{
+			vTaskDelay(30);
+			if(!DIO_u8GetPinValue(0, BTN_STANDBY))
+			{
+				if(Param.SpeedLimiter == ON)
+				{
+					/* Put Speed Limiter into standby */
+					Param.SpeedLimiter = STANDBY;
+					Param.SysState = MAIN_CRUISE;
+					xEventGroupSetBits(egEvents, E_MAIN_SCR);
+				}
+				else if(Param.CruiseControl == ON)
+				{
+					/* Put Speed Limiter into standby */
+					Param.CruiseControl = STANDBY;
+					Param.SysState = MAIN_CRUISE;
+					xEventGroupSetBits(egEvents, E_MAIN_SCR);
+				}
+			}
+			while(!DIO_u8GetPinValue(0, BTN_STANDBY))
+			{
+				vTaskDelay(150);
+			}
+		}
+
+
 		vTaskDelay(150);
 	}
 }
