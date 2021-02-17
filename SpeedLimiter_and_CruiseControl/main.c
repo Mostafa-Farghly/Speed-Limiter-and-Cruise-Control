@@ -419,7 +419,7 @@ void T_Control(void *pvInitData)
 				 */
 				else if(Param.SysState == ALARM)
 				{
-					Param.SysState = MAIN_CRUISE;
+					Param.SysState = SPEED_LIMITER;
 					xEventGroupSetBits(egEvents, E_SL_SCR);
 					xEventGroupClearBits(egEvents, E_ALARM);
 				}
@@ -456,8 +456,8 @@ void T_Control(void *pvInitData)
 				 */
 				else if(Param.SysState == ALARM)
 				{
-					Param.SysState = MAIN_CRUISE;
-					xEventGroupSetBits(egEvents, E_SL_SCR);
+					Param.SysState = CRUISE_CONTROL;
+					xEventGroupSetBits(egEvents, E_CC_SCR);
 					xEventGroupClearBits(egEvents, E_ALARM);
 				}
 				/* Control action is sent over UART to adjust VehicleSpeed */
