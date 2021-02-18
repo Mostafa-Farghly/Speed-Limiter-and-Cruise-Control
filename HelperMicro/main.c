@@ -20,6 +20,9 @@
 #define BRAKES_UART				((uint8)0xFE)
 #define UNPRESS_UART			((uint8)0xFD)
 
+#define MAX_SPEED				((uint8)0xFC)
+#define MIN_SPEED				((uint8)0x00)
+
 
 void System_init();
 
@@ -40,9 +43,12 @@ int main(void)
 			_delay_ms(30);
 			while(!DIO_u8GetPinValue(0, INC_SPEED))
 			{
-				speed++;
-				usart_putc(speed);
-				_delay_ms(300);
+				if(speed < MAX_SPEED)
+				{
+					speed++;
+					usart_putc(speed);
+					_delay_ms(300);
+				}
 			}
 		}
 
@@ -52,9 +58,12 @@ int main(void)
 			_delay_ms(30);
 			while(!DIO_u8GetPinValue(0, DEC_SPEED))
 			{
-				speed--;
-				usart_putc(speed);
-				_delay_ms(300);
+				if(speed > MIN_SPEED)
+				{
+					speed--;
+					usart_putc(speed);
+					_delay_ms(300);
+				}
 			}
 		}
 
