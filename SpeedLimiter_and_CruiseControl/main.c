@@ -182,7 +182,7 @@ void T_UserInput(void *pvInitData)
 
 					while(!DIO_u8GetPinValue(0, BTN_INC))
 					{
-						vTaskDelay(150);
+						vTaskDelay(30);
 					}
 				}
 			}
@@ -225,7 +225,7 @@ void T_UserInput(void *pvInitData)
 
 					while(!DIO_u8GetPinValue(0, BTN_DEC))
 					{
-						vTaskDelay(150);
+						vTaskDelay(30);
 					}
 				}
 			}
@@ -257,7 +257,7 @@ void T_UserInput(void *pvInitData)
 			}
 			while(!DIO_u8GetPinValue(0, BTN_SL))
 			{
-				vTaskDelay(150);
+				vTaskDelay(30);
 			}
 		}
 
@@ -287,7 +287,7 @@ void T_UserInput(void *pvInitData)
 			}
 			while(!DIO_u8GetPinValue(0, BTN_CC))
 			{
-				vTaskDelay(150);
+				vTaskDelay(30);
 			}
 		}
 
@@ -314,7 +314,7 @@ void T_UserInput(void *pvInitData)
 			}
 			while(!DIO_u8GetPinValue(0, BTN_STANDBY))
 			{
-				vTaskDelay(150);
+				vTaskDelay(30);
 			}
 		}
 
