@@ -506,10 +506,13 @@ void T_Uart(void *pvInitData)
 		}
 
 		/* Brakes is only used to put Cruise Control into standby */
-		else if(chr == BRAKES_UART && Param.CruiseControl == ON)
+		else if(chr == BRAKES_UART)
 		{
-			Param.Brakes = PRESSED;
-			xSemaphoreGive(bsControl);
+			if(Param.CruiseControl == ON)
+			{
+				Param.Brakes = PRESSED;
+				xSemaphoreGive(bsControl);
+			}
 		}
 
 		else if(chr == UNPRESS_UART)
